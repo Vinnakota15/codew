@@ -20,7 +20,7 @@ def addTask():
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         task_with_time = f"{current_time} - {task} - Pending"
         
-        with open("Screenshots/tasklist.txt.txt", 'a') as taskfile:
+        with open("teddy.txt", 'a') as taskfile:
             taskfile.write(f"\n{task_with_time}")
             
         task_list.append(task_with_time)
@@ -37,7 +37,7 @@ def deleteTask():
             complete_count -= 1
         task_list.remove(task)
         
-        with open("Screenshots/tasklist.txt.txt", 'w') as taskfile:
+        with open("teddy.txt", 'w') as taskfile:
             for task in task_list:
                 taskfile.write(task + "\n")
                 
@@ -64,7 +64,7 @@ def markComplete():
 
             # Update task list in the file
             task_list[task_index] = updated_task
-            with open("Screenshots/tasklist.txt.txt", 'w') as taskfile:
+            with open("teddy.txt", 'w') as taskfile:
                 for task in task_list:
                     taskfile.write(task + "\n")
 
@@ -76,11 +76,11 @@ def openTaskFile():
     global status_label, last_date
     try:
         global task_list, complete_count
-        with open("Screenshots/tasklist.txt.txt", "r") as taskfile:
+        with open("teddy.txt", "r") as taskfile:
             tasks = taskfile.readlines()
             
         for task in tasks:
-            if task.strip() != "":
+            if task.strip() != "\n":
                 task_list.append(task)
                 listbox.insert(END, task)
                 if "Complete" in task:
@@ -95,13 +95,13 @@ def openTaskFile():
             last_date = current_date
             # Clear task list and update file
             task_list.clear()
-            with open("Screenshots/tasklist.txt.txt", 'w') as taskfile:
+            with open("teddy.txt", 'w') as taskfile:
                 taskfile.write("")
             # Update status label
             updateStatus()
 
     except FileNotFoundError:
-        with open("Screenshots/tasklist.txt.txt", 'w'):
+        with open("teddy.txt", 'w'):
             pass
 
 def showCompletedList():
